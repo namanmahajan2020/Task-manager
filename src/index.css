@@ -1,5 +1,9 @@
 @import "tailwindcss";
-body{
-    --tw-bg-opacity:1;
-    background-color: rgb(207, 203, 231);
+body {
+  --tw-bg-opacity: 1;
+  background-color: rgb(207, 203, 231);
+  background-image: url('./assets/bg.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }

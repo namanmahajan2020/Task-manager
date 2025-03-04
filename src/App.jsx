@@ -5,6 +5,10 @@ import { AiFillDelete } from 'react-icons/ai';
 import { v4 as uuidv4 } from 'uuid';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
+import Confetti from "react-confetti";
+import { useWindowSize } from "react-use";
+
+import "./index.css";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -12,6 +16,10 @@ function App() {
   const [todo, setTodo] = useState('');
   const [todos, setTodos] = useState([]);
   const [showFinished, setShowFinished] = useState(true);
+  
+  // 🌟 Added state for confetti animation
+  const [showConfetti, setShowConfetti] = useState(false);
+  const { width, height } = useWindowSize();
 
   useEffect(() => {
     const todoString = localStorage.getItem('todos');
@@ -20,6 +28,14 @@ function App() {
       setTodos(todos);
     }
   }, []);
+
+  useEffect(() => {
+    // 🌟 Check if all tasks are completed
+    if (todos.length > 0 && todos.every(task => task.isCompleted)) {
+      setShowConfetti(true); // Show confetti 🎉
+      setTimeout(() => setShowConfetti(false), 5000); // Hide confetti after 5 sec
+    }
+  }, [todos]);
 
   const saveToLS = () => {
     localStorage.setItem('todos', JSON.stringify(todos));
@@ -79,8 +95,8 @@ function App() {
       {
         label: 'Tasks',
         data: [completedCount, notCompletedCount],
-        backgroundColor: ['#86efac', '#fca5a5'], // Softer and more appealing shades
-        hoverBackgroundColor: ['#4ade80', '#f87171'], // Original shades for hover
+        backgroundColor: ['#86efac', '#fca5a5'],
+        hoverBackgroundColor: ['#4ade80', '#f87171'],
         borderColor: ['#16a34a', '#dc2626'],
         borderWidth: 2,
       },
@@ -92,9 +108,7 @@ function App() {
       title: {
         display: true,
         text: 'Task Completion Status',
-        font: {
-          size: 18,
-        },
+        font: { size: 18 },
       },
       tooltip: {
         callbacks: {
@@ -115,16 +129,16 @@ function App() {
     },
     responsive: true,
     maintainAspectRatio: false,
-    cutout: '50%', // Creates a hollow center
-    hover: {
-      mode: 'nearest',
-      intersect: true,
-    },
+    cutout: '50%',
+    hover: { mode: 'nearest', intersect: true },
   };
 
   return (
     <>
       <Navbar />
+      {/* 🌟 Confetti Effect */}
+      {showConfetti && <Confetti width={width} height={height} />}
+      
       <div className="mx-3 md:container md:mx-auto my-5 rounded-xl p-5 bg-gradient-to-br from-indigo-50 to-violet-200 opacity-90 min-h-[80vh] flex flex-col md:flex-row gap-8 shadow-lg">
         <div className="md:w-1/2">
           <h1 className="font-bold text-center text-3xl">iTask - Manage your todos at one place</h1>
@@ -147,48 +161,21 @@ function App() {
               </button>
             </div>
           </div>
-          <input
-            className="my-4"
-            onChange={toggleFinished}
-            type="checkbox"
-            checked={showFinished}
-          />{' '}
-          Show Finished
+          <input className="my-4" onChange={toggleFinished} type="checkbox" checked={showFinished} /> Show Finished
           <div className="h-[1px] bg-black opacity-15 w-[90%] mx-auto my-2"></div>
           <h2 className="text-2xl font-bold">Your Todos</h2>
           <div className="todos">
             {todos.length === 0 && <div className="m-5">No Todo to display</div>}
-            {todos.map((item) => {
-              return (
-                (showFinished || !item.isCompleted) && (
-                  <div key={item.id} className="todo flex my-3 justify-between">
-                    <div className="flex gap-5">
-                      <input
-                        name={item.id}
-                        onChange={handleCheckbox}
-                        type="checkbox"
-                        checked={item.isCompleted}
-                      />
-                      <div className={item.isCompleted ? 'line-through' : ''}>{item.todo}</div>
-                    </div>
-                    <div className="buttons flex h-full">
-                      <button
-                        onClick={(e) => handleEdit(e, item.id)}
-                        className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 p-2 font-bold py-1 text-sm text-white rounded-md mx-1 shadow-md transition-all duration-200"
-                      >
-                        <FaEdit />
-                      </button>
-                      <button
-                        onClick={(e) => handleDelete(e, item.id)}
-                        className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 p-2 font-bold py-1 text-sm text-white rounded-md mx-1 shadow-md transition-all duration-200"
-                      >
-                        <AiFillDelete />
-                      </button>
-                    </div>
+            {todos.map((item) => (
+              (showFinished || !item.isCompleted) && (
+                <div key={item.id} className="todo flex my-3 justify-between">
+                  <div className="flex gap-5">
+                    <input name={item.id} onChange={handleCheckbox} type="checkbox" checked={item.isCompleted} />
+                    <div className={item.isCompleted ? 'line-through' : ''}>{item.todo}</div>
                   </div>
-                )
-              );
-            })}
+                </div>
+              )
+            ))}
           </div>
         </div>
         <div className="md:w-1/2 flex flex-col items-center">

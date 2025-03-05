@@ -101,7 +101,7 @@ function App() {
         hoverBackgroundColor: ['#4ade80', '#f87171'],
         borderColor: ['#16a34a', '#dc2626'],
         borderWidth: 2,
-        cutout: '70%',
+        cutout: '50%',
       },
     ],
   };

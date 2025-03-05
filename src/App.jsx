@@ -128,30 +128,28 @@ function App() {
               selected={dueDate}
               onChange={date => setDueDate(date)}
               showTimeSelect={true} // Enable time selection
-
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  setDueDate(e.target.value);
+                }
+              }}
               dateFormat="Pp"
               className="rounded-full px-5 py-1 bg-white"
               placeholderText="Select date and time"
-
             />
-            <button onClick={handleAdd} disabled={todo.length < 3 || !dueDate} className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 disabled:bg-gray-400 p-2 font-bold text-sm text-white rounded-full mx-2 shadow-md transition-all duration-200">Save</button>
+            <button onClick={handleAdd} disabled={todo.length < 3 || !dueDate} className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700  cursor-pointer disabled:bg-gray-400 p-2 font-bold text-sm text-white rounded-full mx-2 shadow-md transition-all duration-200 ">Save</button>
           </div>
-
-
+          <br />
           <h2 className="text-2xl font-bold">Your Todos</h2>
-            <button 
-              onClick={() => setShowFinished(!showFinished)} 
-              className="bg-gradient-to-r from-blue-400 to-blue-600 text-white p-1 rounded mt-2 font-bold"
-
-
+          <button
+            onClick={() => setShowFinished(!showFinished)}
+            className=" text-sm bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white p-2 rounded mt-2 font-bold cursor-pointer"
           >
             {showFinished ? 'Hide Finished Tasks' : 'Show Finished Tasks'}
           </button>
 
-        <div className="todos">
+          <div className="todos">
             {todos.filter(item => showFinished || !item.isCompleted).map((item) => (
-
-
               <div key={item.id} className="todo flex my-3 justify-between">
                 <div className="flex gap-5">
                   <input name={item.id} onChange={handleCheckbox} type="checkbox" checked={item.isCompleted} />
@@ -159,6 +157,11 @@ function App() {
                     <>
                       <input value={editedText} onChange={(e) => setEditedText(e.target.value)} className="border rounded px-2" />
                       <DatePicker
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter') {
+                            setEditingDate(e.target.value);
+                          }
+                        }}
                         selected={editingDate || (item.dueDate ? new Date(item.dueDate) : null)}
                         onChange={(date) => setEditingDate(date)}
                         showTimeSelect
@@ -169,17 +172,38 @@ function App() {
                   ) : (
                     <div>
                       <div className={item.isCompleted ? 'line-through' : ''}>{item.todo}</div>
-                      <div className="text-sm text-gray-500">Due: {new Date(item.dueDate).toLocaleString()}</div>
+                      <div className="text-sm text-gray-500">Due: {new Date(item.dueDate).toLocaleString([], { hour: '2-digit', minute: '2-digit', year: 'numeric', month: 'long', day: 'numeric' })}</div>
                     </div>
                   )}
                 </div>
                 <div className="buttons flex h-full">
                   {editingId === item.id ? (
-                    <button onClick={() => handleSaveEdit(item.id)} className="bg-green-600 p-2 text-white rounded-md mx-1">✅</button>
+                    <button onClick={() => handleSaveEdit(item.id)} className="bg-gradient-to-r bg-green-600  hover:from-green-500 hover:to-green-700 p-1 text-white rounded-md mx-1 cursor-pointer"><button
+                      onClick={() => handleSaveEdit(item.id)}
+                      className="bg-gradient-to-r bg-green-600 hover:from-green-500 hover:to-green-700 p-1 text-white rounded-md mx-1 cursor-pointer"
+                    >
+                      <lord-icon
+                        src="https://cdn.lordicon.com/lomfljuq.json"
+                        trigger="hover"
+                        state="1-morph-check-in-1"
+                        colors="primary:#d1fad7"
+                        style={{ width: "30px", height: "20px" }}
+                      >
+                      </lord-icon>
+                    </button>
+                    </button>
                   ) : (
                     <>
-                      <button onClick={() => handleEdit(item.id, item.todo, item.dueDate)} className="bg-gradient-to-r from-indigo-400 to-indigo-600 p-2 text-white rounded-md mx-1"><FaEdit /></button>
-                      <button onClick={() => handleDelete(item.id)} className="bg-gradient-to-r from-red-400 to-red-600 p-2 text-white rounded-md mx-1"><AiFillDelete /></button>
+                      <button onClick={() => handleEdit(item.id, item.todo, item.dueDate)} className="bg-gradient-to-r from-indigo-400 to-indigo-600  hover:from-indigo-700 hover:to-purple-700 cursor-pointer p-2 text-white rounded-md mx-1"><lord-icon
+                        src="https://cdn.lordicon.com/gwlusjdu.json"
+                        trigger="hover"
+                        style={{ "width": "15px", "height": "15px" }}>
+                      </lord-icon></button>
+                      <button onClick={() => handleDelete(item.id)} className="bg-gradient-to-r from-red-400 to-red-600 p-2 text-white rounded-md mx-1 cursor-pointer hover:from-orange-700 hover:to-red-400"><lord-icon
+                        src="https://cdn.lordicon.com/skkahier.json"
+                        trigger="hover"
+                        style={{ "width": "15px", "height": "15px" }}>
+                      </lord-icon></button>
                     </>
                   )}
                 </div>

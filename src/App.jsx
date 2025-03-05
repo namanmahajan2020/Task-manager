@@ -173,6 +173,15 @@ function App() {
                     <input name={item.id} onChange={handleCheckbox} type="checkbox" checked={item.isCompleted} />
                     <div className={item.isCompleted ? 'line-through' : ''}>{item.todo}</div>
                   </div>
+                  {/* 🌟 Edit and Delete Buttons Restored */}
+                  <div className="buttons flex h-full">
+                    <button onClick={(e) => handleEdit(e, item.id)} className="bg-indigo-600 p-2 text-white rounded-md mx-1">
+                      <FaEdit />
+                    </button>
+                    <button onClick={(e) => handleDelete(e, item.id)} className="bg-red-600 p-2 text-white rounded-md mx-1">
+                      <AiFillDelete />
+                    </button>
+                  </div>
                 </div>
               )
             ))}
@@ -180,7 +189,7 @@ function App() {
         </div>
         <div className="md:w-1/2 flex flex-col items-center">
           <h2 className="text-2xl font-bold mb-4">Task Progress</h2>
-          <div className="w-72 h-72 bg-#f3f3ff backdrop-blur-sm rounded-lg shadow-xl p-4 border border-white/20">
+          <div className="w-72 h-72 rounded-lg shadow-xl p-4 border">
             <Pie data={data} options={options} />
           </div>
         </div>

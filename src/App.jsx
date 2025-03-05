@@ -38,6 +38,8 @@ function App() {
     }
   }, [todos]);
 
+
+
   const saveToLS = () => {
     localStorage.setItem('todos', JSON.stringify(todos));
   };
@@ -124,13 +126,7 @@ function App() {
     <>
       <Navbar />
       {showConfetti && <Confetti width={width} height={height} />}
-
-      {/* 🔥 Google Sign-In Button */}
-    <div className="flex justify-center my-4">
-      <button onClick={handleGoogleSignIn} className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded shadow">
-        Sign in with Google
-      </button>
-    </div>
+      
       <div className="mx-3 md:container md:mx-auto my-5 rounded-xl p-5 bg-gradient-to-br from-indigo-50 to-violet-200 opacity-90 min-h-[80vh] flex flex-col md:flex-row gap-8 shadow-lg">
         <div className="md:w-1/2">
           <h1 className="font-bold text-center text-3xl">iTask - Manage your todos at one place</h1>

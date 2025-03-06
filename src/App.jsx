@@ -106,16 +106,30 @@ function App() {
 
   const handleGoogleSignIn = async () => {
     try {
-      const result = await signInWithPopup(auth, provider);
-      const user = result.user;
-  
-      console.log("User signed in:", user);
-      alert(`Welcome, ${user.displayName}!`);
-    } catch (error) {
-      console.error("Google Sign-In Error:", error);
-    }
-  };
+        const result = await signInWithPopup(auth, provider);
+        const user = result.user;
 
+        console.log("User signed in:", user);
+
+        const response = await fetch("http://localhost:5000/api/users", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                name: user.displayName,
+                email: user.email
+            })
+        });
+
+        const data = await response.json();
+        console.log("Server Response:", data);
+
+        alert(`Welcome, ${user.displayName}!`);
+    } catch (error) {
+        console.error("Google Sign-In Error:", error);
+    }
+};
+
+  
   const completedCount = todos.filter((todo) => todo.isCompleted).length;
   const notCompletedCount = todos.length - completedCount;
 

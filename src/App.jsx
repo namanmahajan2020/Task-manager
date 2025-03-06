@@ -131,19 +131,12 @@ function App() {
     <>
       <Navbar />
       {showConfetti && <Confetti width={width} height={height} />}
-
       {/* 🔥 Google Sign-In Button */}
     <div className="flex justify-center my-4">
-    <button 
-  onClick={handleGoogleSignIn}
-  className="fixed bottom-8 right-8 bg-white text-gray-700 font-semibold flex items-center gap-2 px-4 py-2 rounded-full shadow-lg hover:bg-gray-100 transition-all"
->
-  <img src="https://upload.wikimedia.org/wikipedia/commons/4/4a/Google_2015_logo.svg" alt="Google Logo" className="h-5 w-5"/>
-  Sign in with Google
-</button>
-
+      <button onClick={handleGoogleSignIn} className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded shadow">
+        Sign in with Google
+      </button>
     </div>
-
       <div className="mx-3 md:container md:mx-auto m-3 rounded-xl p-5 bg-gradient-to-br from-indigo-50 to-violet-200 opacity-90 min-h-[88vh] flex flex-col md:flex-row gap-8 shadow-lg">
         <div className="md:w-1/2">
           <h1 className="font-bold text-center text-3xl">iTask - Manage your todos at one place</h1>

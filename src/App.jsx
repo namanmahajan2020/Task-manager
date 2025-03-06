@@ -11,6 +11,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { signInWithPopup } from "firebase/auth";
 import { auth, provider } from "./firebaseConfig";
+import axios from "axios";
 
 import "./index.css";
 
@@ -41,6 +42,12 @@ function App() {
       setTimeout(() => setShowConfetti(false), 5000);
     }
   }, [todos]);
+
+  useEffect(() => {
+    axios.get("http://localhost:5000/api/users") // Change endpoint based on your API
+      .then(response => console.log(response.data))
+      .catch(error => console.error("Error fetching data:", error));
+  }, []);
 
   const saveToLS = (updatedTodos) => {
     localStorage.setItem('todos', JSON.stringify(updatedTodos));

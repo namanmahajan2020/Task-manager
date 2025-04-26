@@ -2,9 +2,18 @@ require("dotenv").config();
 const express = require("express");
 const mysql = require("mysql2");
 
+
 const app = express();
 const mysqlRoutes = require('./routes/mysqlRoutes'); // Import MySQL routes
 const cors = require('cors'); // CORS setup
+
+app.use(express.json()); // Middleware to parse JSON
+
+app.use(cors({
+    origin: 'http://localhost:5173',  // Allow only your frontend's origin
+    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allow necessary methods
+    credentials: true,  // Allow cookies if needed
+  }));
 
 // MySQL Database Connection
 const db = mysql.createConnection({
@@ -47,7 +56,7 @@ app.post("/api/users", (req, res) => {
         return res.status(400).json({ error: "Missing name or email" });
     }
 
-    const query = "INSERT INTO Users (name, email) VALUES (?, ?) ON DUPLICATE KEY UPDATE name = VALUES(name)";
+    const query = "INSERT INTO users (name, email) VALUES (?, ?) ON DUPLICATE KEY UPDATE name = VALUES(name)";
     db.query(query, [name, email], (err, result) => {
         if (err) {
             console.error("Error inserting user:", err);
@@ -59,11 +68,8 @@ app.post("/api/users", (req, res) => {
     });
 });
 
-app.use(express.json()); // Middleware to parse JSON
-app.use(require("cors")()); // Enable CORS
-
 // Use the MySQL routes
-app.use('/api/mysql', mysqlRoutes);
+app.use('/api/mysql', cors(), mysqlRoutes);
 
 // Add Task API route in server.js
 app.post("/api/tasks", (req, res) => {

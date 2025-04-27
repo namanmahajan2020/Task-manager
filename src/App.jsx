@@ -267,7 +267,7 @@ function App() {
                    ))}
                  </div>
                </div>
-               <div className="md:w-1/2 flex flex-col items-center">
+                             <div className="md:w-1/2 flex flex-col items-center">
                  <h2 className="text-2xl font-bold mb-4">Task Progress</h2>
                  <div className="w-72 h-72 rounded-lg shadow-xl p-4">
                    <Doughnut data={data} />

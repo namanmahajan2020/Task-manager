@@ -68,7 +68,9 @@ app.post("/api/users", (req, res) => {
     });
 });
 
-// Use the MySQL routes 
+app.use(require("cors")()); // Enable CORS
+
+// Use the MySQL routes
 app.use('/api/mysql', cors(), mysqlRoutes);
 
 // Add Task API route in server.js
@@ -151,3 +153,27 @@ app.get("/auth-url", (req, res) => {
     const url = getAuthURL();
     res.send({ url });
 });
+
+
+// Add Team API route in server.js
+app.post("/api/teams", (req, res) => {
+    const { name, created_by } = req.body;
+  
+    console.log("Received team data:", req.body); // Log the received data
+  
+    if (!name || !created_by) {
+      return res.status(400).json({ error: "Missing team name or creator ID" });
+    }
+  
+    const query = "INSERT INTO Teams (name, created_by) VALUES (?, ?)";
+    db.query(query, [name, created_by], (err, result) => {
+      if (err) {
+        console.error("Error inserting team:", err); // Log the error
+        return res.status(500).json({ error: "Database error" });
+      } else {
+        console.log("Team created successfully:", result); // Log the successful result
+        res.status(200).json({ message: "Team created successfully", teamId: result.insertId });
+      }
+    });
+  });
+  

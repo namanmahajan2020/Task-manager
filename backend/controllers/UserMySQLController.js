@@ -40,3 +40,42 @@ const googleSignIn = (req, res) => {
 };
 
 module.exports = { googleSignIn };
+
+// Fetch user details by ID
+const getUserById = (req, res) => {
+  const userId = req.params.id;
+
+  const query = 'SELECT user_id, name, email, phone_no1, phone_no2 FROM Users WHERE user_id = ?';
+  db.query(query, [userId], (err, result) => {
+    if (err) {
+      console.error('Error fetching user:', err);
+      return res.status(500).json({ message: 'Server error' });
+    }
+    if (result.length === 0) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    res.status(200).json(result[0]);
+  });
+};
+
+// Update mobile numbers
+const updateMobileNumbers = (req, res) => {
+  const userId = req.params.id;
+  const { phone_no1, phone_no2 } = req.body;
+
+  const updateQuery = 'UPDATE Users SET phone_no1 = ?, phone_no2 = ? WHERE user_id = ?';
+  db.query(updateQuery, [phone_no1, phone_no2, userId], (err, result) => {
+    if (err) {
+      console.error('Error updating user:', err);
+      return res.status(500).json({ message: 'Server error' });
+    }
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    res.status(200).json({ message: 'Mobile numbers updated successfully' });
+  });
+};
+
+module.exports = { googleSignIn, getUserById, updateMobileNumbers };
+
+

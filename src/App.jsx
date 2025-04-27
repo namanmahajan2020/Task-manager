@@ -17,7 +17,6 @@ import "./index.css";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Teams from "./pages/Teams"; // <-- ADD THIS
-import Profile from './pages/Profile'; // Adjust path as needed
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -277,11 +276,9 @@ function App() {
            }
          />
          {/* Teams Route */}
-         <Route path="/profile" element={<Profile />} />
          <Route path="/teams" element={<Teams />} />
        </Routes>
      </>
-     
    );
  }
  

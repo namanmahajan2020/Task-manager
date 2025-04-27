@@ -17,6 +17,7 @@ import "./index.css";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Teams from "./pages/Teams"; // <-- ADD THIS
+import Profile from './pages/Profile'; // Adjust path as needed
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -266,7 +267,7 @@ function App() {
                    ))}
                  </div>
                </div>
-               <div className="md:w-1/2 flex flex-col items-center">
+                             <div className="md:w-1/2 flex flex-col items-center">
                  <h2 className="text-2xl font-bold mb-4">Task Progress</h2>
                  <div className="w-72 h-72 rounded-lg shadow-xl p-4">
                    <Doughnut data={data} />
@@ -276,9 +277,11 @@ function App() {
            }
          />
          {/* Teams Route */}
+         <Route path="/profile" element={<Profile />} />
          <Route path="/teams" element={<Teams />} />
        </Routes>
      </>
+     
    );
  }
  

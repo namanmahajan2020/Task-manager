@@ -68,7 +68,7 @@ app.post("/api/users", (req, res) => {
     });
 });
 
-// Use the MySQL routes
+// Use the MySQL routes 
 app.use('/api/mysql', cors(), mysqlRoutes);
 
 // Add Task API route in server.js

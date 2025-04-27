@@ -155,14 +155,14 @@ function App() {
       <Navbar />
 
       {/* Sign In Section - Add here */}
-      <div className="flex justify-end items-center px-6 py-4">
+      {/* <div className="flex justify-end items-center px-6 py-4">
         <button
           onClick={handleGoogleSignIn}
             className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg shadow-md"
         >
           Sign in with Google
         </button>
-      </div>
+      </div> */}
       
 
       {showConfetti && <Confetti width={width} height={height} />}

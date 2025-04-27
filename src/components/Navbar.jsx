@@ -83,6 +83,12 @@ const Navbar = () => {
         >
           Profile
         </Link>
+        <Link
+          to="/About"
+          className={`text-md font-medium hover:text-violet-300 ${isActive("/About") ? "font-bold underline" : ""}`}
+        >
+          About
+        </Link>
       </div>
 
       {/* Right side */}
@@ -144,6 +150,13 @@ const Navbar = () => {
                   className={`block px-4 py-2 text-sm text-gray-700 hover:bg-violet-100 hover:text-violet-800 ${isActive("/teams") ? "font-bold" : ""}`}
                 >
                   Teams
+                </Link>
+                <Link
+                  to="/About"
+                  onClick={() => setMenuOpen(false)}
+                  className={`block px-4 py-2 text-sm text-gray-700 hover:bg-violet-100 hover:text-violet-800 ${isActive("/About") ? "font-bold" : ""}`}
+                >
+                  About
                 </Link>
                 <button
                   onClick={handleSignOut}

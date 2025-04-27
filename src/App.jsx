@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import 'animate.css';
 import Navbar from './components/Navbar';
 import { FaEdit } from 'react-icons/fa';
 import { AiFillDelete } from 'react-icons/ai';
@@ -18,6 +19,7 @@ import "./index.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Teams from "./pages/Teams"; // <-- ADD THIS
 import Profile from './pages/Profile';
+import AboutPage from './pages/About';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -278,6 +280,8 @@ function App() {
          />
          {/* Teams Route */}
          <Route path="/teams" element={<Teams />} />
+         {/* Teams Route */}
+         <Route path="/About" element={<AboutPage />} />
          {/* Profile Route */}
         <Route path="/profile" element={<Profile />} /> 
 

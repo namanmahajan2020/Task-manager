@@ -8,11 +8,6 @@ const Profile = () => {
   const [formData, setFormData] = useState({
     secondaryEmail: "",
     phoneNumbers: [""],
-    about: "",
-    address: "",
-    company: "",
-    designation: "",
-    linkedIn: "",
   });
   const [saveSuccess, setSaveSuccess] = useState(false);
 
@@ -97,72 +92,6 @@ const Profile = () => {
               + Add another phone number
             </button>
           </div>
-
-          {/* About */}
-          <div>
-            <label className="block text-gray-700 font-medium mb-2">About You</label>
-            <textarea
-              name="about"
-              value={formData.about}
-              onChange={handleInputChange}
-              className="w-full border border-gray-300 px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-violet-400 transition"
-              rows="4"
-              placeholder="Tell us about yourself..."
-            />
-          </div>
-
-          {/* Address */}
-          <div>
-            <label className="block text-gray-700 font-medium mb-2">Address</label>
-            <input
-              type="text"
-              name="address"
-              value={formData.address}
-              onChange={handleInputChange}
-              className="w-full border border-gray-300 px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-violet-400 transition"
-              placeholder="Your address"
-            />
-          </div>
-
-          {/* Company */}
-          <div>
-            <label className="block text-gray-700 font-medium mb-2">Company Name</label>
-            <input
-              type="text"
-              name="company"
-              value={formData.company}
-              onChange={handleInputChange}
-              className="w-full border border-gray-300 px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-violet-400 transition"
-              placeholder="Company you work for"
-            />
-          </div>
-
-          {/* Designation */}
-          <div>
-            <label className="block text-gray-700 font-medium mb-2">Designation</label>
-            <input
-              type="text"
-              name="designation"
-              value={formData.designation}
-              onChange={handleInputChange}
-              className="w-full border border-gray-300 px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-violet-400 transition"
-              placeholder="Your position"
-            />
-          </div>
-
-          {/* LinkedIn */}
-          <div>
-            <label className="block text-gray-700 font-medium mb-2">LinkedIn Profile</label>
-            <input
-              type="url"
-              name="linkedIn"
-              value={formData.linkedIn}
-              onChange={handleInputChange}
-              className="w-full border border-gray-300 px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-violet-400 transition"
-              placeholder="https://linkedin.com/in/yourprofile"
-            />
-          </div>
-
           {/* Buttons */}
           <div className="flex flex-col md:flex-row justify-center md:justify-between items-center gap-4 mt-8">
             <button
@@ -170,13 +99,6 @@ const Profile = () => {
               className="bg-violet-600 text-white px-6 py-3 rounded-lg hover:bg-violet-700 transition w-full md:w-auto"
             >
               Save Profile
-            </button>
-
-            <button
-              type="button"
-              className="bg-gray-200 text-gray-700 px-6 py-3 rounded-lg hover:bg-gray-300 transition w-full md:w-auto"
-            >
-              View Public Profile
             </button>
           </div>
 

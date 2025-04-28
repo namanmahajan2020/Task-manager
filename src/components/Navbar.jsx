@@ -63,33 +63,35 @@ const Navbar = () => {
         </Link>
       </div>
 
-      {/* Middle Nav Links */}
-      <div className="flex items-center gap-8">
-        <Link
-          to="/"
-          className={`text-md font-medium hover:text-violet-300 ${isActive("/") ? "font-bold underline" : ""}`}
-        >
-          Home
-        </Link>
-        <Link
-          to="/teams"
-          className={`text-md font-medium hover:text-violet-300 ${isActive("/teams") ? "font-bold underline" : ""}`}
-        >
-          Teams
-        </Link>
-        <Link
-          to="/profile"
-          className={`text-md font-medium hover:text-violet-300 ${isActive("/profile") ? "font-bold underline" : ""}`}
-        >
-          Profile
-        </Link>
-        <Link
-          to="/About"
-          className={`text-md font-medium hover:text-violet-300 ${isActive("/About") ? "font-bold underline" : ""}`}
-        >
-          About
-        </Link>
-      </div>
+      {/* Middle Nav Links (only after sign in) */}
+      {user && (
+        <div className="flex items-center gap-8 mt-4 md:mt-0">
+          <Link
+            to="/"
+            className={`text-md font-medium hover:text-violet-300 ${isActive("/") ? "font-bold underline" : ""}`}
+          >
+            Home
+          </Link>
+          <Link
+            to="/teams"
+            className={`text-md font-medium hover:text-violet-300 ${isActive("/teams") ? "font-bold underline" : ""}`}
+          >
+            Teams
+          </Link>
+          <Link
+            to="/profile"
+            className={`text-md font-medium hover:text-violet-300 ${isActive("/profile") ? "font-bold underline" : ""}`}
+          >
+            Profile
+          </Link>
+          <Link
+            to="/About"
+            className={`text-md font-medium hover:text-violet-300 ${isActive("/About") ? "font-bold underline" : ""}`}
+          >
+            About
+          </Link>
+        </div>
+      )}
 
       {/* Right side */}
       <div className="flex items-center gap-4 relative mt-4 md:mt-0">
@@ -102,18 +104,20 @@ const Navbar = () => {
           </button>
         ) : (
           <div className="flex items-center gap-3 relative">
-            {/* Profile name on hover */}
+            {/* Profile name and image */}
             <div className="relative group">
               <Link to="/profile" className="flex items-center gap-2">
-                <span className="hidden md:block font-medium hover:underline transition">{user.displayName.split(" ")[0]}</span>
+                <span className="hidden md:block font-medium hover:underline transition">
+                  {user.displayName?.split(" ")[0]}
+                </span>
                 <img
-                  src={user?.photoURL || "https://cdn-icons-png.flaticon.com/512/149/149071.png"}
+                  src={user.photoURL || "https://cdn-icons-png.flaticon.com/512/149/149071.png"}
                   alt="Profile"
                   className="w-10 h-10 rounded-full object-cover border-2 border-white group-hover:scale-110 transition-transform duration-200 cursor-pointer"
                 />
               </Link>
 
-              {/* Tooltip on hover */}
+              {/* Tooltip */}
               <div className="absolute top-12 left-1/2 -translate-x-1/2 bg-white text-gray-800 text-sm px-3 py-1 rounded shadow opacity-0 group-hover:opacity-100 transition-all duration-200 z-10 whitespace-nowrap">
                 {user.displayName}
               </div>

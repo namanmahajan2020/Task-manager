@@ -30,7 +30,9 @@ const Profile = () => {
   };
 
   const addPhoneNumberField = () => {
-    setFormData({ ...formData, phoneNumbers: [...formData.phoneNumbers, ""] });
+    if (formData.phoneNumbers.length < 2) { // Allow max 2 numbers
+      setFormData({ ...formData, phoneNumbers: [...formData.phoneNumbers, ""] });
+    }
   };
 
   const handleSubmit = (e) => {
@@ -84,14 +86,18 @@ const Profile = () => {
                 placeholder={`Phone Number ${index + 1}`}
               />
             ))}
-            <button
-              type="button"
-              onClick={addPhoneNumberField}
-              className="text-sm text-violet-600 hover:underline mt-2"
-            >
-              + Add another phone number
-            </button>
+            {/* Only show "Add another" button if less than 2 numbers */}
+            {formData.phoneNumbers.length < 2 && (
+              <button
+                type="button"
+                onClick={addPhoneNumberField}
+                className="text-sm text-violet-600 hover:underline mt-2"
+              >
+                + Add another phone number
+              </button>
+            )}
           </div>
+
           {/* Buttons */}
           <div className="flex flex-col md:flex-row justify-center md:justify-between items-center gap-4 mt-8">
             <button
@@ -116,3 +122,4 @@ const Profile = () => {
 };
 
 export default Profile;
+

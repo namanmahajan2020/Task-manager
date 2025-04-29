@@ -47,6 +47,8 @@ const Navbar = () => {
       await signOut(auth);
       setMenuOpen(false);
       navigate('/');
+      setMenuOpen(false);
+      navigate('/');
     } catch (error) {
       console.error("Sign-Out Error:", error);
     }
@@ -62,7 +64,6 @@ const Navbar = () => {
           iTask
         </Link>
       </div>
-
       {/* Middle Nav Links (only after sign in) */}
       {user && (
         <div className="flex items-center gap-8 mt-4 md:mt-0">

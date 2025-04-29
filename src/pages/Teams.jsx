@@ -1,63 +1,49 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 const TeamsPage = () => {
   const [newTeamName, setNewTeamName] = useState("");
-  const [teams, setTeams] = useState([]);
+  const [teams, setTeams] = useState([
+    { name: 'Frontend Wizards', members: 4 },
+    { name: 'Backend Ninjas', members: 3 },
+    { name: 'UI/UX Pros', members: 5 }
+  ]);
   const [showCreateForm, setShowCreateForm] = useState(false);
-
-  // Function to fetch teams from the backend
-  const fetchTeams = async () => {
-    try {
-      const response = await fetch("http://localhost:5000/api/teams");
-      const data = await response.json();
-      if (data.teams) {
-        setTeams(data.teams); // Assuming the backend returns a 'teams' array
-      }
-    } catch (error) {
-      console.error("Error fetching teams:", error);
-      alert("Error fetching teams.");
-    }
-  };
-
-  // Call fetchTeams when the component mounts
-  useEffect(() => {
-    fetchTeams();
-  }, []);
 
   // Function to handle team creation
   const handleCreateTeam = async (e) => {
     e.preventDefault();
     if (newTeamName.trim()) {
-      const userId = 1; // Replace with actual logged-in user ID
-
+      const userId = 1; // Replace this with actual logged-in user ID
+  
+      console.log("Creating team with name:", newTeamName); // Log the team name
+  
       try {
-        const response = await fetch("http://localhost:5000/api/teams", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
+        const response = await fetch('http://localhost:5000/api/teams', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             name: newTeamName,
-            created_by: userId, // Replace with actual logged-in user ID
+            created_by: userId,
           }),
         });
-
+  
         const data = await response.json();
+        console.log("Response from backend:", data); // Log the backend response
         if (data.message === "Team created successfully") {
-          // Re-fetch the teams after successful creation
-          fetchTeams();
-          setNewTeamName("");
+          setTeams([...teams, { name: newTeamName, members: 1 }]);
+          setNewTeamName('');
           setShowCreateForm(false);
-          alert("Team created successfully!");
+          alert('Team created successfully!');
         } else {
-          alert("Failed to create team: " + data.error);
+          alert('Failed to create team: ' + data.error);
         }
       } catch (error) {
-        console.error("Error creating team:", error);
-        alert("An error occurred while creating the team.");
+        console.error('Error creating team:', error);
+        alert('An error occurred while creating the team.');
       }
     }
   };
+  
 
   return (
     <div className="min-h-screen bg-gray-100 p-6">
@@ -107,4 +93,3 @@ const TeamsPage = () => {
 };
 
 export default TeamsPage;
-

@@ -17,6 +17,8 @@ import "./index.css";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Teams from "./pages/Teams"; // <-- ADD THIS
+import AboutPage from "./pages/About"; // <-- ADD THIS
+import Profile from "./pages/Profile"; // <-- ADD THIS
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -153,16 +155,6 @@ function App() {
   return (
     <>
       <Navbar />
-
-      {/* Sign In Section - Add here */}
-      <div className="flex justify-end items-center px-6 py-4">
-        <button
-          onClick={handleGoogleSignIn}
-            className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg shadow-md"
-        >
-          Sign in with Google
-        </button>
-      </div>
       
 
       {showConfetti && <Confetti width={width} height={height} />}
@@ -277,6 +269,8 @@ function App() {
          />
          {/* Teams Route */}
          <Route path="/teams" element={<Teams />} />
+         <Route path="/about" element={<AboutPage />} />
+         <Route path="/profile" element={<Profile />} />
        </Routes>
      </>
    );

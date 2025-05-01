@@ -112,7 +112,7 @@ const Navbar = () => {
                   {user.displayName?.split(" ")[0]}
                 </span>
                 <img
-                  src={user.photoURL || "https://cdn-icons-png.flaticon.com/512/149/149071.png"}
+                  src={user?.photoURL || "https://via.placeholder.com/150"}
                   alt="Profile"
                   className="w-10 h-10 rounded-full object-cover border-2 border-white group-hover:scale-110 transition-transform duration-200 cursor-pointer"
                 />
